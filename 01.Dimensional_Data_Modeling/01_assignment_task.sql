@@ -1,5 +1,4 @@
-CREATE TYPE films AS
-(
+CREATE TYPE films AS (
 		films TEXT, 
 		votes INTEGER,
 		rating REAL,		
