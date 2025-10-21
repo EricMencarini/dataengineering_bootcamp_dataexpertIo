@@ -1,19 +1,19 @@
-CREATE TYPE films AS (
-		films TEXT, 
+CREATE TYPE film_arr AS (
+		film TEXT, 
 		votes INTEGER,
 		rating REAL,		
-        filmid INTEGER
+        filmid TEXT
 )
 
 CREATE TYPE quality_class AS 
     ENUM('star','good','average','bad')
 
 CREATE TABLE actors (
-    actor_id INTEGER,
-    actor_name TEXT,
+    actorid TEXT,
+    actorname TEXT,
     films films[],
     quality_class quality_class,
     is_active BOOLEAN,
-    year_film INTEGER,    
-    PRIMARY KEY(actor_id)
+    current_year INTEGER,    
+    PRIMARY KEY(actorid, current_year)
 )
