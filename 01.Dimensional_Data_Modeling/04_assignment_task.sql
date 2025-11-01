@@ -3,6 +3,7 @@
 Write a "backfill" query that can populate the entire `actors_history_scd` 
 table in a single query.
 */
+INSERT INTO actors_history_scd
 WITH hist_lag AS (
 	SELECT
 		actorname,
@@ -52,4 +53,5 @@ GROUP BY
 	quality_class
 ORDER BY 
 	actorid, 
-	streak_identifier
+	streak_identifier;
+	

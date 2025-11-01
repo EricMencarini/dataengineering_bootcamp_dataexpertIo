@@ -6,26 +6,24 @@ data with new incoming data from the `actors` table.
 CREATE TYPE scd_type as (
 	quality_class quality_class,
 	is_active boolean,
-	start_year INTEGER,
-	end_year INTEGER
+	start_date INTEGER,
+	end_date INTEGER
 )
-
-
 WITH last_year_scd AS (
 	SELECT * FROM actors_history_scd
 	WHERE current_year = 2021
-	AND end_date = 2021
+	AND end_date = 1980
 ),
 historical_scd AS (
 	SELECT
-		actor,
+		actorname,
 		quality_class,
 		is_active,
 		start_date,
 		end_date
 	FROM actors_history_scd
 	WHERE current_year = 2021
-	AND end_date < 2021
+	AND end_date < 1980
 ),
 this_year_data AS (
 	SELECT *
@@ -34,7 +32,7 @@ this_year_data AS (
 ),
 unchanged_records AS (
 	SELECT
-		ty.actor,
+		ty.actorname,
 		ty.quality_class,
 		ty.is_active,
 		ly.start_date,
@@ -46,7 +44,7 @@ unchanged_records AS (
 ),
 changed_records AS (
 	SELECT
-		ty.actor,
+		ty.actorname,
 		UNNEST(ARRAY[
             ROW(
                 ly.quality_class,
@@ -71,7 +69,7 @@ changed_records AS (
 ),
 unnested_changed_records as (
 	SELECT
-		actor,
+		actorname,
 		(records::scd_type).quality_class,
 		(records::scd_type).is_active,
 		(records::scd_type).start_date,
@@ -80,7 +78,7 @@ unnested_changed_records as (
 ),
 new_records AS (
 	select
-		ty.actor,
+		ty.actorname,
 		ty.quality_class,
 		ty.is_active,
 		ty.current_year as start_date,
@@ -100,4 +98,4 @@ FROM (
 	SELECT * FROM unnested_changed_records
 	UNION ALL
 	SELECT * FROM new_records
-)
+) AS final_scd;

@@ -8,8 +8,8 @@ CREATE TABLE actors_history_scd (
     actorname TEXT,
     quality_class quality_class,
     is_active BOOLEAN,
+    start_date INTEGER,
+    end_date INTEGER,      
     current_year INTEGER,
-    start_year DATE,
-    end_year DATE,      
-    PRIMARY KEY(actorid, start_year)
-)
+    PRIMARY KEY(actorid, start_date)
+);
