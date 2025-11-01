@@ -1,5 +1,5 @@
 /*
-2. **Cumulative table generation query:** 
+2.Cumulative table generation query:
 Write a query that populates the `actors` table one year at a time.
 */
 
@@ -11,8 +11,10 @@ SELECT MIN(YEAR), MAX(YEAR) FROM actor_films -- min/max 1970/2021
 
 INSERT INTO actors
 WITH last_year AS (
-  SELECT * FROM actors
-  WHERE current_year = 1969
+  SELECT * 
+    FROM actors
+  WHERE 
+    current_year = 1969
 ), current_year AS (
   SELECT 
       actorid,
@@ -47,4 +49,4 @@ SELECT
   END AS is_active,
   COALESCE(cy.year, ly.current_year + 1) AS current_year
 FROM current_year cy
-    FULL OUTER JOIN last_year ly ON ly.actorid = cy.actorid
+    FULL OUTER JOIN last_year ly ON ly.actorid = cy.actorid;

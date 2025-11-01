@@ -1,4 +1,6 @@
-/*1. **DDL for `actors` table:** Create a DDL for an `actors` table with the following fields:
+/*
+1.DDL for `actors` table:
+Create a DDL for an `actors` table with the following fields:
     - `films`: An array of `struct` with the following fields:
 		- film: The name of the film.
 		- votes: The number of votes the film received.
@@ -18,10 +20,10 @@ CREATE TYPE film_arr AS (
 		votes INTEGER,
 		rating REAL,		
         filmid TEXT
-)
+);
 
 CREATE TYPE quality_class AS 
-    ENUM('star','good','average','bad')
+    ENUM('star','good','average','bad');
 
 CREATE TABLE actors (
     actorid TEXT,
@@ -31,4 +33,4 @@ CREATE TABLE actors (
     is_active BOOLEAN,
     current_year INTEGER,    
     PRIMARY KEY(actorid, current_year)
-)
+);

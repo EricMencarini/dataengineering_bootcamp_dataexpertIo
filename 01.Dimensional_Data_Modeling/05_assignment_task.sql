@@ -1,5 +1,5 @@
 /*
-5. **Incremental query for `actors_history_scd`:** 
+5.Incremental query for `actors_history_scd`: 
 Write an "incremental" query that combines the previous year's SCD 
 data with new incoming data from the `actors` table.
 */
@@ -21,14 +21,18 @@ historical_scd AS (
 		is_active,
 		start_date,
 		end_date
-	FROM actors_history_scd
-	WHERE current_year = 2021
-	AND end_date < 1980
+	FROM 
+		actors_history_scd
+	WHERE 
+		current_year = 2021
+		AND end_date < 1980
 ),
 this_year_data AS (
 	SELECT *
-	FROM actors
-	WHERE current_year = 2022
+	FROM 
+		actors
+	WHERE 
+		current_year = 2022
 ),
 unchanged_records AS (
 	SELECT
@@ -37,10 +41,13 @@ unchanged_records AS (
 		ty.is_active,
 		ly.start_date,
 		ty.current_year as end_date
-	FROM this_year_data ty
-	JOIN last_year_scd ly ON ly.actorid = ty.actorid
-	WHERE ty.quality_class = ly.quality_class
-	AND ty.is_active = ly.is_active
+	FROM 
+		this_year_data ty
+	JOIN 
+		last_year_scd ly ON ly.actorid = ty.actorid
+	WHERE 
+		ty.quality_class = ly.quality_class
+		AND ty.is_active = ly.is_active
 ),
 changed_records AS (
 	SELECT
@@ -60,9 +67,11 @@ changed_records AS (
                 ty.current_year
             )::scd_type
         ]) AS records
-	FROM this_year_data ty
+	FROM 
+		this_year_data ty
 	LEFT JOIN last_year_scd ly ON ly.actorid = ty.actorid
-	WHERE (
+	WHERE 
+	(
 		ty.quality_class <> ly.quality_class
 		OR ty.is_active <> ly.is_active
 	)
@@ -86,16 +95,23 @@ new_records AS (
 	FROM
 		this_year_data ty
 	LEFT JOIN last_year_scd ly ON ty.actorid = ly.actorid
-	WHERE ly.actorid IS NULL
+	WHERE 
+		ly.actorid IS NULL
 )
 SELECT 
 	*, 2022 AS current_year
 FROM (
 	SELECT * FROM historical_scd
+	
 	UNION ALL
+	
 	SELECT * FROM unchanged_records
+	
 	UNION ALL
+	
 	SELECT * FROM unnested_changed_records
+	
 	UNION ALL
+	
 	SELECT * FROM new_records
 ) AS final_scd;
