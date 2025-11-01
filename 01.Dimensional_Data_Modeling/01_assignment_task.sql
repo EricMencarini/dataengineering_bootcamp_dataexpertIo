@@ -11,7 +11,7 @@
 		- `average`: Average rating > 6 and ≤ 7.
 		- `bad`: Average rating ≤ 6.
     - `is_active`: A BOOLEAN field that indicates whether an actor is currently active in the film industry (i.e., making films this year).
-    */
+*/
     
 CREATE TYPE film_arr AS (
 		film TEXT, 

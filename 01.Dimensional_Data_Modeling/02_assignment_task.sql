@@ -10,7 +10,6 @@ SELECT MIN(YEAR), MAX(YEAR) FROM actor_films -- min/max 1970/2021
 --Seed querie for cumulation;
 
 INSERT INTO actors
-
 WITH last_year AS (
   SELECT * FROM actors
   WHERE current_year = 1969
