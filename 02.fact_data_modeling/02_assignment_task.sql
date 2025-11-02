@@ -4,3 +4,12 @@
   - data type here should look similar to `MAP<STRING, ARRAY[DATE]>`
     - or you could have `browser_type` as a column with multiple rows for each user (either way works, just be consistent!)
 */
+
+CREATE TABLE user_devices_cumulated (
+    user_id BIGINT,
+    device_id BIGINT,
+    browser_type TEXT,
+	  device_activity_datelist DATE[],
+	  date DATE, 
+	  PRIMARY KEY(user_id, device_id, browser_type, date)
+);
