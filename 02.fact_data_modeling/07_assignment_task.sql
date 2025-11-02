@@ -9,7 +9,7 @@
 CREATE TABLE host_activity_reduced (
     host TEXT,
     month DATE,
-    hit_array REAL[] 
+    hit_array REAL[], 
     unique_visitors REAL[],
     PRIMARY KEY(host, month)
 );
