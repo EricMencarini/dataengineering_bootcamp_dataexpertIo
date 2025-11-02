@@ -6,8 +6,8 @@
 */
 
 CREATE TABLE user_devices_cumulated (
-    user_id BIGINT,
-    device_id BIGINT,
+    user_id TEXT, --BIGINT got out of range
+    device_id TEXT,
     browser_type TEXT,
 	  device_activity_datelist DATE[],
 	  date DATE, 
